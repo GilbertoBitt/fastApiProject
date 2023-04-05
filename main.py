@@ -21,8 +21,8 @@ class User(Base):
 
 app = FastAPI()
 
-DATABASE_URL = os.environ['DATABASE_URL']
-engine = create_engine('postgresql+psycopg2://user:password@hostname/database_name')
+DATABASE_URL = os.environ['DATABASE_URL'].replace("postgres://", "postgresql+psycopg2://", 1)
+engine = create_engine(DATABASE_URL)
 User.__table__.create(bind=engine, checkfirst=True)
 Session = sessionmaker(bind=engine)
 
@@ -34,7 +34,7 @@ async def root():
 
 @app.get("/hello/{name}")
 async def say_hello(name: str):
-    return {"message": f"Hello {DATABASE_URL}"}
+    return {"message": f"Hello {name}"}
 
 
 @app.get("/hello/{name}/phone/{phone}/score/{score}")
