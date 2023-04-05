@@ -1,3 +1,4 @@
+import os
 from msilib import Table
 
 from fastapi import FastAPI
@@ -20,6 +21,7 @@ class User(Base):
 
 app = FastAPI()
 
+DATABASE_URL = os.environ['DATABASE_URL']
 engine = create_engine('postgresql+psycopg2://user:password@hostname/database_name')
 User.__table__.create(bind=engine, checkfirst=True)
 Session = sessionmaker(bind=engine)
@@ -32,7 +34,7 @@ async def root():
 
 @app.get("/hello/{name}")
 async def say_hello(name: str):
-    return {"message": f"Hello {name}"}
+    return {"message": f"Hello {DATABASE_URL}"}
 
 
 @app.get("/hello/{name}/phone/{phone}/score/{score}")
