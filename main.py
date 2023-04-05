@@ -12,7 +12,7 @@ Base = declarative_base()
 
 class User(Base):
     __tablename__ = "User"
-    phone = Column(Integer, primary_key=True, unique=True, nullable=False, autoincrement=False)
+    phone = Column(BigInteger, primary_key=True, unique=True, nullable=False, autoincrement=False)
     name = Column(String)
     score = Column(BigInteger)
 
@@ -37,17 +37,17 @@ async def say_hello(name: str):
 
 @app.get("/hello/{name}/phone/{phone}/score/{score}")
 async def say_hello(name: str, phone: int, score: int):
-    session = Session()
-    user = session.query(User).filter(User.phone == phone).first()
-    if user:
-        user.name += name
-        if user.score < score:
-            user.score = score
-        session.commit()
-    else:
-        session.add(User(name=name, phone=phone, score=score))
-        session.commit()
-    return {"message": f"Hello {name}, your phone number is {phone}"}
+    # session = Session()
+    # user = session.query(User).filter(User.phone == phone).first()
+    # if user:
+    #     user.name += name
+    #     if user.score < score:
+    #         user.score = score
+    #     session.commit()
+    # else:
+    #     session.add(User(name=name, phone=phone, score=score))
+    #     session.commit()
+    return {"message": f"Hello {name}, your phone number is {phone}, Your score is {score}"}
 
 
 @app.get("/topScores")
