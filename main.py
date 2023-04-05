@@ -1,6 +1,4 @@
 import os
-from msilib import Table
-
 from fastapi import FastAPI
 from sqlalchemy import create_engine, MetaData
 from sqlalchemy import create_engine, Column, Integer, String, Sequence, Float, PrimaryKeyConstraint, ForeignKey, \
