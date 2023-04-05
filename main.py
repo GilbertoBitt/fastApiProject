@@ -37,16 +37,16 @@ async def say_hello(name: str):
 
 @app.get("/hello/{name}/phone/{phone}/score/{score}")
 async def say_hello(name: str, phone: int, score: int):
-    # session = Session()
-    # user = session.query(User).filter(User.phone == phone).first()
-    # if user:
-    #     user.name += name
-    #     if user.score < score:
-    #         user.score = score
-    #     session.commit()
-    # else:
-    #     session.add(User(name=name, phone=phone, score=score))
-    #     session.commit()
+    session = Session()
+    user = session.query(User).filter(User.phone == phone).first()
+    if user:
+        user.name += name
+        if user.score < score:
+            user.score = score
+        session.commit()
+    else:
+        session.add(User(name=name, phone=phone, score=score))
+        session.commit()
     return {"message": f"Hello {name}, your phone number is {phone}, Your score is {score}"}
 
 
