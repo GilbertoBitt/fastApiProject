@@ -45,9 +45,10 @@ async def say_hello(name: str, phone: int, score: int):
             user.score = score
         session.commit()
     else:
-        session.add(User(name=name, phone=phone, score=score))
+        user = User(name=name, phone=phone, score=score)
+        session.add(user)
         session.commit()
-    return {"message": f"Hello {name}, your phone number is {phone}, Your score is {score}"}
+    return user
 
 
 @app.get("/topScores")
