@@ -50,6 +50,7 @@ async def say_hello(name: str, phone: str, score: str):
         user = User(name=name, phone=phone_int, score=score_int)
         session.add(user)
         session.commit()
+    user = session.query(User).filter(User.phone == phone_int).first()
     return user
 
 
