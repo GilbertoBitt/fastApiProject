@@ -36,18 +36,18 @@ async def say_hello(name: str):
 
 
 @app.get("/hello/{name}/phone/{phone}/score/{score}")
-async def say_hello(name: str, phone_str: str, score_str: str):
-    phone = int(phone_str)
-    score = int(score_str)
+async def say_hello(name: str, phone: str, score: str):
+    phone_int = int(phone)
+    score_int = int(score)
     session = Session()
-    user = session.query(User).filter(User.phone == phone).first()
+    user = session.query(User).filter(User.phone == phone_int).first()
     if user:
         user.name += name
-        if user.score < score:
-            user.score = score
+        if user.score < score_int:
+            user.score = score_int
         session.commit()
     else:
-        user = User(name=name, phone=phone, score=score)
+        user = User(name=name, phone=phone_int, score=score_int)
         session.add(user)
         session.commit()
     return user
