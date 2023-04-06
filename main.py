@@ -41,6 +41,7 @@ async def say_hello(name: str, phone: str, score: str):
     score_int = int(score)
     session = Session()
     user = session.query(User).filter(User.phone == phone_int).first()
+    //first
     if user:
         user.name = name
         if user.score < score_int:
