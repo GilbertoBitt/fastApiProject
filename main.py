@@ -36,7 +36,9 @@ async def say_hello(name: str):
 
 
 @app.get("/hello/{name}/phone/{phone}/score/{score}")
-async def say_hello(name: str, phone: int, score: int):
+async def say_hello(name: str, phone_str: str, score_str: str):
+    phone = int(phone_str)
+    score = int(score_str)
     session = Session()
     user = session.query(User).filter(User.phone == phone).first()
     if user:
