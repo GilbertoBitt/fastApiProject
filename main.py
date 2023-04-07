@@ -1,11 +1,13 @@
 import os
 from fastapi import FastAPI
+from fastapi.openapi.models import Response
 from sqlalchemy import create_engine, MetaData
 from sqlalchemy import create_engine, Column, Integer, String, Sequence, Float, PrimaryKeyConstraint, ForeignKey, \
     BigInteger
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker, relationship, backref
 from sqlalchemy.sql import *
+from fastapi.responses import JSONResponse, RedirectResponse
 
 Base = declarative_base()
 
@@ -51,7 +53,7 @@ async def say_hello(name: str, phone: str, score: str):
         session.add(user)
         session.commit()
     user = session.query(User).filter(User.phone == phone_int).first()
-    return user
+    return JSONResponse(content={"message": f"Hello {user.name} your score is {user.score}"})
 
 
 @app.get("/topScores")
