@@ -53,7 +53,7 @@ async def say_hello(name: str, phone: str, score: str):
         session.add(user)
         session.commit()
     user = session.query(User).filter(User.phone == phone_int).first()
-    return Response(content={"message": "success"}, media_type="application/json")
+    return {"message": "Here's your interdimensional portal."}
 
 
 @app.get("/topScores")
