@@ -43,13 +43,12 @@ async def say_hello(name: str, phone: str, score: str):
     session = Session()
     user = session.query(User).filter(User.phone == phone_int).first()
     if user:
-        user.name = name.replace("_", " ")
+        user.name = name
         if user.score < score_int:
             user.score = score_int
         session.commit()
     else:
-        name_update = name.replace("_", " ")
-        user = User(name=name_update, phone=phone_int, score=score_int)
+        user = User(name=name, phone=phone_int, score=score_int)
         session.add(user)
         session.commit()
     user = session.query(User).filter(User.phone == phone_int).first()
