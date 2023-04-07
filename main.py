@@ -53,7 +53,7 @@ async def say_hello(name: str, phone: str, score: str):
         session.add(user)
         session.commit()
     user = session.query(User).filter(User.phone == phone_int).first()
-    return JSONResponse(content={"message": f"Hello {user.name} your score is {user.score}"})
+    return JSONResponse(content={"message": "success"})
 
 
 @app.get("/topScores")
